@@ -10,3 +10,8 @@ Directorios no seguidos:
 
 -  Carpeta img que se en cuentra en public
 -  .env
+
+Tecnologias:
+
+-  CSS.module
+-  Redux

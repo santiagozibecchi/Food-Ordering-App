@@ -27,7 +27,9 @@ const Product = () => {
          </div>
          <div className={styles.right}>
             <h1 className={styles.title}>{pizza.name}</h1>
-            <span>${pizza.price[size]}</span>
+            <span className={styles.price}>${pizza.price[size]}</span>
+            <p className={styles.desc}>{pizza.desc}</p>
+            <h3 className={styles.choose}>Choose the size</h3>
          </div>
       </div>
    );

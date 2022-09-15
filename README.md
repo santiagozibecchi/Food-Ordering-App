@@ -15,3 +15,7 @@ Tecnologias:
 
 -  CSS.module
 -  Redux
+
+Temas aprendidos:
+
+-  Manejo de slidel sin libreria externa

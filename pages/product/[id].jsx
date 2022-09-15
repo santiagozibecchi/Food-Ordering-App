@@ -84,6 +84,14 @@ const Product = () => {
                   <label htmlFor="spicy">Spicy Sauce</label>
                </div>
             </div>
+            <div className={styles.add}>
+               <input
+                  type="number"
+                  defaultValue={1}
+                  className={styles.quantity}
+               />
+               <button className={styles.button}>Add to Cart</button>
+            </div>
          </div>
       </div>
    );

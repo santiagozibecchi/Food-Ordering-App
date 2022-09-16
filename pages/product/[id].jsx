@@ -12,7 +12,7 @@ const Product = ({ pizza }) => {
    // Para guardar en el estado, los ingredientes extras
    const [extras, setExtras] = useState([]);
    // Cantidad de pizzas
-   const [quanitity, setQuanitity] = useState(1);
+   const [quantity, setQuantity] = useState(1);
 
    // Centralizo una funcion que actualiza el precio segun
    // que opcion seleccione el cliente, ya que el precio varia por
@@ -102,7 +102,7 @@ const Product = ({ pizza }) => {
             </div>
             <div className={styles.add}>
                <input
-                  onChange={(e) => setQuanitity(e.target.value)}
+                  onChange={(e) => setQuantity(e.target.value)}
                   type="number"
                   defaultValue={1}
                   className={styles.quantity}

@@ -6,7 +6,9 @@
 .left {
    flex: 1;
    height: 100%;
+   width: 80%;
    display: flex;
+   align-self: center;
    align-items: center;
    justify-content: center;
 }
@@ -94,4 +96,46 @@
    border: none;
    font-weight: 500;
    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+   .container {
+      height: auto;
+      text-align: center;
+      flex-direction: column;
+   }
+
+   .imgContainer {
+      width: 60vh;
+      height: 60vh;
+   }
+
+   .title {
+      margin: 0;
+   }
+
+   .sizes {
+      width: 80%;
+      align-items: center;
+      margin: 0 auto;
+   }
+
+   .ingredients {
+      flex-direction: column;
+   }
+
+   .option {
+      font-size: 18px;
+      margin: 10px;
+      gap: 5px
+   }
+
+   .checkbox {
+      width: 25px;
+   }
+
+   .quantity, .button {
+      height: 50px;
+      padding: 10px 20px;
+   }
 }

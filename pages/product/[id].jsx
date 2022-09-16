@@ -9,6 +9,9 @@ const Product = ({ pizza }) => {
    // state that determinate pizza price
    const [costPrice, setCostPrice] = useState(pizza.prices[0]);
 
+   // Para guardar en el estado, los ingredientes extras
+   const [extras, setExtras] = useState([]);
+
    // Centralizo una funcion que actualiza el precio segun
    // que opcion seleccione el cliente, ya que el precio varia por
    // entradas distintas:
@@ -29,15 +32,24 @@ const Product = ({ pizza }) => {
    // and after that if the customer choose an additional ingredient
    // or chage the size of the pizza
    // the cost will change
-   const handleChange = (e, price) => {
+   const handleChange = (e, option) => {
       const checked = e.target.checked;
+      const inputName = e.target.name;
 
       if (checked) {
-         changePrice(price);
+         changePrice(option.price);
+         setExtras((prev) => [
+            ...prev,
+            option,
+         ]); /* ...extras en lugar de ...prev (the same) */
       } else {
-         changePrice(-price);
+         changePrice(-option.price);
+         setExtras(extras.filter(({ text }) => text !== inputName));
+         // setExtras(extras.filter((extra) => extra._id !== option_id));
       }
    };
+
+   console.log(extras);
 
    return (
       <div className={styles.container}>
@@ -73,16 +85,16 @@ const Product = ({ pizza }) => {
             </div>
             <h3 className={styles.choose}>Choose additional ingredient</h3>
             <div className={styles.ingredients}>
-               {pizza.extraOptions.map(({ text, price, _id }) => (
-                  <div className={styles.option} key={_id}>
+               {pizza.extraOptions.map((option) => (
+                  <div className={styles.option} key={option._id}>
                      <input
                         type="checkbox"
-                        id={text}
-                        name={text}
+                        id={option.text}
+                        name={option.text}
                         className={styles.checkbox}
-                        onChange={(e) => handleChange(e, price)}
+                        onChange={(e) => handleChange(e, option)}
                      />
-                     <label htmlFor={text}>{text}</label>
+                     <label htmlFor={option.text}>{option.text}</label>
                   </div>
                ))}
             </div>

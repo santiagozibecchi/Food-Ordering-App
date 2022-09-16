@@ -6,6 +6,15 @@ export default async function (req, res) {
    await db.connect();
 
    if (method === "GET") {
+      try {
+         const products = await Product.find();
+
+         await db.disconnect();
+         res.status(200).json(products);
+      } catch (error) {
+         console.log(error);
+         res.status(500).json(error);
+      }
    }
 
    if (method === "POST") {

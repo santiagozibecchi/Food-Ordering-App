@@ -13,7 +13,7 @@ const Navbar = () => {
                <div className={styles.text}>03777 646 464621</div>
             </div>
          </div>
-
+            
          <div className={styles.item}>
             <ul className={styles.list}>
                <li className={styles.listItem}>Homepage</li>

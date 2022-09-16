@@ -3,7 +3,9 @@ import styles from "../../styles/Order.module.css";
 import Image from "next/image";
 
 const OrderPage = () => {
-   const status = 0;
+   // * STATUS -> 0, 1, 2, 3
+   // A medida que avanza el pedido retorna el css correspondiente
+   const status = 1;
 
    const statusClass = (index) => {
       if (index - status < 1) return styles.done;

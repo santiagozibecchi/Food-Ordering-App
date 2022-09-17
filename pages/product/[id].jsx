@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import styles from "../../styles/Product.module.css";
+import { addProduct } from "../../redux/cartSlice";
 
 const Product = ({ pizza }) => {
    const [size, setSize] = useState(0);
@@ -13,6 +15,9 @@ const Product = ({ pizza }) => {
    const [extras, setExtras] = useState([]);
    // Cantidad de pizzas
    const [quantity, setQuantity] = useState(1);
+
+   // Redux
+   const dispatch = useDispatch();
 
    // * Centralizo una funcion que actualiza el precio segun
    // que opcion seleccione el cliente, ya que el precio varia por
@@ -51,7 +56,9 @@ const Product = ({ pizza }) => {
       }
    };
 
-   console.log(extras);
+   const handleClick = () => {
+      dispatch(addProduct({ ...pizza, extras, costPrice, quantity }));
+   };
 
    return (
       <div className={styles.container}>
@@ -107,7 +114,9 @@ const Product = ({ pizza }) => {
                   defaultValue={1}
                   className={styles.quantity}
                />
-               <button className={styles.button}>Add to Cart</button>
+               <button className={styles.button} onClick={handleClick}>
+                  Add to Cart
+               </button>
             </div>
          </div>
       </div>

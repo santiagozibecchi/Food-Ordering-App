@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import Image from "next/image";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/Cart.module.css";
 
@@ -11,6 +11,8 @@ import {
 } from "@paypal/react-paypal-js";
 
 const CartPage = () => {
+   const [open, setOpen] = useState(false);
+
    // This values are the props in the UI
    const amount = "2";
    const currency = "USD";
@@ -140,17 +142,34 @@ const CartPage = () => {
                <div className={styles.totalText}>
                   <b className={styles.totalTextTitle}>Total:</b>${cart.total}
                </div>
-               <button className={styles.button}>CHECKOUT NOW!</button>
-               <PayPalScriptProvider
-                  options={{
-                     "client-id": "test",
-                     components: "buttons",
-                     currency: "USD",
-                     "disable-funding": "credit,card,p24",
-                  }}
-               >
-                  <ButtonWrapper currency={currency} showSpinner={false} />
-               </PayPalScriptProvider>
+               {open ? (
+                  <div className={styles.paymentMethods}>
+                     <button className={styles.payButton}>
+                        CASH ONDELIVERY
+                     </button>
+                     <PayPalScriptProvider
+                        options={{
+                           "client-id":
+                              "Afew96u1-bgZeWz7y6h3tPHXcyrmZ9XLZU-iIutLaPs_otKIfdjRGnHChMO2b9mC6fSo5XcrLOL1XUsV",
+                           components: "buttons",
+                           currency: "USD",
+                           "disable-funding": "credit,card,p24",
+                        }}
+                     >
+                        <ButtonWrapper
+                           currency={currency}
+                           showSpinner={false}
+                        />
+                     </PayPalScriptProvider>
+                  </div>
+               ) : (
+                  <button
+                     onClick={() => setOpen(true)}
+                     className={styles.button}
+                  >
+                     CHECKOUT NOW!
+                  </button>
+               )}
             </div>
          </div>
       </div>

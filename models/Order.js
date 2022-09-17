@@ -7,7 +7,7 @@ const OrderSchema = new mongoose.Schema(
          required: true,
          maxlength: 60,
       },
-      adress: {
+      address: {
          type: String,
          required: true,
          maxlength: 200,
@@ -33,8 +33,7 @@ const OrderSchema = new mongoose.Schema(
 // Si anteriormente ya se encuentra el producto
 // No lo vuelvas a crear devuelta
 
-export default mongoose.models.Product ||
-   mongoose.model("Product", ProductSchema);
+export default mongoose.models.Order || mongoose.model("Order", OrderSchema);
 
 // Metodo de pago
 // * METHOD -> 0 = cash / 1 = payable

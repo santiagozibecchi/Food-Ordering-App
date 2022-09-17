@@ -1,5 +1,5 @@
-import Product from "../../../models/Product";
 import { db } from "../../../database";
+import Product from "../../../models/Product";
 
 export default async function (req, res) {
    const { method } = req;

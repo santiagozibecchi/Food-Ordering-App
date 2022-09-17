@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import styles from "../../styles/Cart.module.css";
 
 import { useEffect } from "react";
 import {
@@ -9,17 +8,35 @@ import {
    PayPalButtons,
    usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import { useRouter } from "next/router";
+import { reset } from "../../redux/cartSlice";
+import axios from "axios";
+
+import styles from "../../styles/Cart.module.css";
 
 const CartPage = () => {
    const [open, setOpen] = useState(false);
+   const cart = useSelector((state) => state.cart);
 
    // This values are the props in the UI
-   const amount = "2";
+   const amount = cart.total;
    const currency = "USD";
    const style = { layout: "vertical" };
 
    const dispatch = useDispatch();
-   const cart = useSelector((state) => state.cart);
+   const router = useRouter();
+
+   // creando orden con los datos de paypay
+   const createOrder = async (data) => {
+      try {
+         const res = await axios.post("http://localhost:3000/api/orders", data);
+
+         res.status === 201 && router.push("/orders/" + res.data._id);
+         dispatch(reset());
+      } catch (error) {
+         console.log(error);
+      }
+   };
 
    // Custom component to wrap the PayPalButtons and handle currency changes
    const ButtonWrapper = ({ currency, showSpinner }) => {
@@ -65,7 +82,15 @@ const CartPage = () => {
                onApprove={function (data, actions) {
                   return actions.order.capture().then(function (details) {
                      // Your code here after capture the order
-                     console.log(details);
+                     // Codigo que se ejecuta luego de terminar la transaccion correctamente
+                     // console.log(details);
+                     const shipping = details.purchase_units[0].shipping;
+                     createOrder({
+                        customer: shipping.name.full_name,
+                        address: shipping.address.address_line_1,
+                        total: cart.total,
+                        method: 1,
+                     });
                   });
                }}
             />

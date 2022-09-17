@@ -3,7 +3,19 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/Cart.module.css";
 
+import { useEffect } from "react";
+import {
+   PayPalScriptProvider,
+   PayPalButtons,
+   usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
+
 const CartPage = () => {
+   // This values are the props in the UI
+   const amount = "2";
+   const currency = "USD";
+   const style = { layout: "vertical" };
+
    const dispatch = useDispatch();
    const cart = useSelector((state) => state.cart);
 

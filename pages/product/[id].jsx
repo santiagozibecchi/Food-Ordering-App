@@ -14,7 +14,7 @@ const Product = ({ pizza }) => {
    // Cantidad de pizzas
    const [quantity, setQuantity] = useState(1);
 
-   // Centralizo una funcion que actualiza el precio segun
+   // * Centralizo una funcion que actualiza el precio segun
    // que opcion seleccione el cliente, ya que el precio varia por
    // entradas distintas:
    // input del checkbox y el size de la pizza

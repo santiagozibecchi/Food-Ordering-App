@@ -56,13 +56,13 @@ const AdminPage = () => {
                </thead>
                <tbody>
                   <tr className={styles.trTitle}>
-                     <td>5666612318041</td>
+                     <td>{"5666612318041".slice(0,5)}...</td>
                      <td>John Doe</td>
                      <td>$50</td>
                      <td>Paid</td>
                      <td>Preparing</td>
                      <td>
-                        <button className={styles.button}>Next Stage</button>
+                        <button className={styles}>Next Stage</button>
                      </td>
                   </tr>
                </tbody>

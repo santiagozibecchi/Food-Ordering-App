@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "../../styles/Order.module.css";
 import Image from "next/image";
+import axios from "axios";
+import styles from "../../styles/Order.module.css";
 
-const OrderPage = () => {
+const OrderPage = ({ order }) => {
    // * STATUS -> 0, 1, 2, 3
    // A medida que avanza el pedido retorna el css correspondiente
-   const status = 1;
+   const status = order.status;
 
    const statusClass = (index) => {
       if (index - status < 1) return styles.done;
@@ -29,18 +30,18 @@ const OrderPage = () => {
                   <tbody>
                      <tr className={styles.tr}>
                         <td>
-                           <span className={styles.id}>56315441</span>
+                           <span className={styles.id}>{order._id}</span>
                         </td>
                         <td>
-                           <span className={styles.name}>John Doe</span>
+                           <span className={styles.name}>{order.customer}</span>
                         </td>
                         <td>
                            <span className={styles.adress}>
-                              Elton st. 225-55 CA
+                              {order.address}
                            </span>
                         </td>
                         <td>
-                           <span className={styles.total}>$39.80</span>
+                           <span className={styles.total}>${order.total}</span>
                         </td>
                      </tr>
                   </tbody>
@@ -125,6 +126,20 @@ const OrderPage = () => {
          </div>
       </div>
    );
+};
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+export const getServerSideProps = async ({ params }) => {
+   const { data } = await axios.get(
+      `http://localhost:3000/api/orders/${params.id}`
+   );
+
+   return {
+      props: {
+         order: data,
+      },
+   };
 };
 
 export default OrderPage;

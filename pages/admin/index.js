@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/Admin.module.css";
 import axios from "axios";
 
 const AdminPage = ({ orders, products }) => {
-   console.log(products);
+   const [pizzaList, setPizzaList] = useState(products);
+   const [orderList, setOrderList] = useState(orders);
+
+   const handleDelete = async (id) => {
+      try {
+         const resp = await axios.delete(
+            `http://localhost:3000/api/products/${id}`
+         );
+         setPizzaList(pizzaList.filter((p) => p._id !== id));
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
    return (
       <div className={styles.container}>
          {/* PRODUCTS */}
@@ -21,7 +34,7 @@ const AdminPage = ({ orders, products }) => {
                      <th>Action</th>
                   </tr>
                </thead>
-               {products.map((product) => (
+               {pizzaList.map((product) => (
                   <tbody key={product._id}>
                      <tr className={styles.trTitle}>
                         <td>
@@ -38,7 +51,12 @@ const AdminPage = ({ orders, products }) => {
                         <td>${product.prices[0]}</td>
                         <td>
                            <button className={styles.button}>Edit</button>
-                           <button className={styles.button}>Delete</button>
+                           <button
+                              onClick={() => handleDelete(product._id)}
+                              className={styles.button}
+                           >
+                              Delete
+                           </button>
                         </td>
                      </tr>
                   </tbody>

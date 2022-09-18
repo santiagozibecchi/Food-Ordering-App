@@ -36,9 +36,9 @@ export default async function (req, res) {
    }
 
    if (method === "DELETE") {
-      const product = await Product.create(req.body);
+      const product = await Product.findByIdAndDelete(id);
 
-      res.status(201).json(product);
+      res.status(200).json("Product delete: ", product);
 
       await db.disconnect();
 

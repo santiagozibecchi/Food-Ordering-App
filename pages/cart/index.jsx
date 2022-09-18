@@ -16,6 +16,8 @@ import styles from "../../styles/Cart.module.css";
 
 const CartPage = () => {
    const [open, setOpen] = useState(false);
+   // Metodo de pago en efectivo
+   const [cash, setCash] = useState(false);
    const cart = useSelector((state) => state.cart);
 
    // This values are the props in the UI
@@ -170,7 +172,7 @@ const CartPage = () => {
                </div>
                {open ? (
                   <div className={styles.paymentMethods}>
-                     <button className={styles.payButton}>
+                     <button onClick={() => setCash(true)} className={styles.payButton}>
                         CASH ONDELIVERY
                      </button>
                      <PayPalScriptProvider

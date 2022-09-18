@@ -13,6 +13,7 @@ import { reset } from "../../redux/cartSlice";
 import axios from "axios";
 
 import styles from "../../styles/Cart.module.css";
+import OrderDetail from "../../components/OrderDetail";
 
 const CartPage = () => {
    const [open, setOpen] = useState(false);
@@ -172,7 +173,10 @@ const CartPage = () => {
                </div>
                {open ? (
                   <div className={styles.paymentMethods}>
-                     <button onClick={() => setCash(true)} className={styles.payButton}>
+                     <button
+                        onClick={() => setCash(true)}
+                        className={styles.payButton}
+                     >
                         CASH ONDELIVERY
                      </button>
                      <PayPalScriptProvider
@@ -200,6 +204,7 @@ const CartPage = () => {
                )}
             </div>
          </div>
+         {cash && <OrderDetail createOrder={createOrder} total={cart.total} />}
       </div>
    );
 };

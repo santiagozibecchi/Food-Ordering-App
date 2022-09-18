@@ -20,8 +20,24 @@ const halder = async (req, res) => {
          res.status(500).json(error);
       }
    }
+
    if (method === "PUT") {
+      const order = await Order.findByIdAndUpdate(id, req.body, {
+         new: true,
+      });
+      // req.body porque le estamos enviando data desde el cliente
+
+      res.status(200).json(order);
+
+      await db.disconnect();
+
+      try {
+      } catch (error) {
+         console.log(error);
+         res.status(500).json(error);
+      }
    }
+
    if (method === "POST") {
    }
 };

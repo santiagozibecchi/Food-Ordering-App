@@ -22,9 +22,12 @@ export default async function (req, res) {
    }
 
    if (method === "PUT") {
-      const product = await Product.create(req.body);
+      const product = await Product.findByIdAndUpdate(id, req.body, {
+         new: true,
+      });
+      // req.body porque le estamos enviando data desde el cliente
 
-      res.status(201).json(product);
+      res.status(200).json(product);
 
       await db.disconnect();
 

@@ -20,3 +20,10 @@ Temas aprendidos:
 
 -  Manejo de slidel sin libreria externa
 -  Tablas
+
+Archivo .env necesita las siguientes claves secretas:
+
+-  MONGO_URL -> mongoDB database
+-  USERNAME
+-  PASSWORD
+-  TOKEN

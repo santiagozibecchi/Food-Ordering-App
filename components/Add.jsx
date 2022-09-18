@@ -76,6 +76,9 @@ const Add = ({ setClose }) => {
                      name="price"
                      onChange={handleExtraInput}
                   />
+                  <button className={styles.extraButton} onClick={handleExtra}>
+                     Add new extra
+                  </button>
                </div>
             </div>
          </div>

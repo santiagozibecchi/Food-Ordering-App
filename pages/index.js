@@ -5,7 +5,6 @@ import PizzaList from "../components/PizzaList";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ pizzaList }) {
-   
    return (
       <div className={styles.container}>
          <Head>
@@ -25,11 +24,19 @@ export default function Home({ pizzaList }) {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 export const getServerSideProps = async (ctx) => {
+   const myCookie = ctx.req?.cookies || "";
+   let admin = false;
+
+   if (myCookie.token === process.env.TOKEN) {
+      admin = true;
+   }
+
    const { data } = await axios.get("http://localhost:3000/api/products");
 
    return {
       props: {
          pizzaList: data,
+         admin,
       },
    };
 };

@@ -11,16 +11,40 @@ const Add = ({ setClose }) => {
    const [extraOptions, setExtraOptions] = useState([]);
    const [extra, setExtra] = useState(null);
 
+   const handleExtraInput = (e) => {
+      setExtra({ ...extra, [e.target.name]: e.target.value });
+   };
+
+   const handleExtra = (e) => {
+      setExtraOptions((prev) => [...prev, extra]);
+   };
+
+   const changePrice = (e, index) => {
+      const currentPrices = prices;
+      // key : value
+      // currentPrices[index] -> posicion en el array
+      // Asignando valor a la posicion determinada
+      currentPrices[index] = e.target.value;
+      setPrices(currentPrices);
+   };
+
+   const handleClick = async () => {};
+
    return (
       <div className={styles.container}>
          <div className={styles.wrapper}>
             <span className={styles.close} onClick={() => setClose(true)}>
                X
             </span>
-            <h1>Add a new Pizza</h1>
+            <h1 className={styles.title}>Add a new Pizza</h1>
             <div className={styles.item}>
                <label className={styles.label}>Choose an image</label>
-               <input className={styles.input} type="file" />
+               <input
+                  className={styles.input}
+                  type="file"
+                  // Just one file per upload
+                  onChange={(e) => setFile(e.target.files[0])}
+               />
             </div>
             <div className={styles.item}>
                <label className={styles.label}>Title</label>
@@ -40,24 +64,26 @@ const Add = ({ setClose }) => {
             </div>
             <div className={styles.item}>
                <label className={styles.label}>Prices</label>
-               <input
-                  className={`${styles.input} ${styles.inputSm}`}
-                  type="number"
-                  placeholder="Small"
-                  onChange={(e) => changePrice(e, 0)}
-               />
-               <input
-                  className={`${styles.input} ${styles.inputSm}`}
-                  type="number"
-                  placeholder="Medium"
-                  onChange={(e) => changePrice(e, 1)}
-               />
-               <input
-                  className={`${styles.input} ${styles.inputSm}`}
-                  type="number"
-                  placeholder="Large"
-                  onChange={(e) => changePrice(e, 2)}
-               />
+               <div className={styles.priceContainer}>
+                  <input
+                     className={`${styles.input} ${styles.inputSm}`}
+                     type="number"
+                     placeholder="Small"
+                     onChange={(e) => changePrice(e, 0)}
+                  />
+                  <input
+                     className={`${styles.input} ${styles.inputSm}`}
+                     type="number"
+                     placeholder="Medium"
+                     onChange={(e) => changePrice(e, 1)}
+                  />
+                  <input
+                     className={`${styles.input} ${styles.inputSm}`}
+                     type="number"
+                     placeholder="Large"
+                     onChange={(e) => changePrice(e, 2)}
+                  />
+               </div>
             </div>
             <div className={styles.item}>
                <label className={styles.label}>Extra</label>
@@ -80,7 +106,17 @@ const Add = ({ setClose }) => {
                      Add new extra
                   </button>
                </div>
+               <div className={styles.extraItems}>
+                  {extraOptions.map((option) => (
+                     <span className={styles.extraItem} key={option.text}>
+                        {option.text}
+                     </span>
+                  ))}
+               </div>
             </div>
+            <button className={styles.addButton} onClick={handleClick}>
+               Create
+            </button>
          </div>
       </div>
    );

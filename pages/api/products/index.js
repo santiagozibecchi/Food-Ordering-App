@@ -2,7 +2,10 @@ import { db } from "../../../database";
 import Product from "../../../models/Product";
 
 export default async function (req, res) {
-   const { method } = req;
+   const { method, cookies } = req;
+
+   const token = cookies.token;
+
    await db.connect();
 
    if (method === "GET") {
@@ -18,13 +21,13 @@ export default async function (req, res) {
    }
 
    if (method === "POST") {
-      const product = await Product.create(req.body);
-
-      res.status(201).json(product);
-
-      await db.disconnect();
-
+      if (!token || token !== process.env.TOKEN) {
+         return res.status(401).json("Not authenticated");
+      }
       try {
+         const product = await Product.create(req.body);
+         res.status(201).json(product);
+         await db.disconnect();
       } catch (error) {
          console.log(error);
          res.status(500).json(error);

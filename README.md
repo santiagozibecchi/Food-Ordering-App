@@ -15,15 +15,19 @@ Tecnologias:
 
 -  CSS.module
 -  Redux
+-  Next
 
 Temas aprendidos:
 
 -  Manejo de slidel sin libreria externa
 -  Tablas
+-  Cloudinary
+-  Mongoose Model Schema
+-  Redux
 
 Archivo .env necesita las siguientes claves secretas:
 
 -  MONGO_URL -> mongoDB database
--  USERNAME
--  PASSWORD
--  TOKEN
+-  USERNAME -> cuenta del admin
+-  PASSWORD -> cuenta del admin
+-  TOKEN -> necesario para la cookie

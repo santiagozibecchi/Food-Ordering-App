@@ -28,7 +28,38 @@ const Add = ({ setClose }) => {
       setPrices(currentPrices);
    };
 
-   const handleClick = async () => {};
+   // * Coneccion a cloudinary
+   const cloudId = "dw6swihjh";
+
+   const handleCreate = async () => {
+      const data = new FormData();
+
+      console.log(data);
+
+      data.append("file", file);
+      data.append("upload_preset", "uploads");
+
+      try {
+         const uploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/${cloudId}/image/upload`,
+            data
+         );
+
+         const { url } = uploadResponse.data;
+         const newProduct = {
+            title,
+            desc,
+            prices,
+            extraOptions,
+            img: url,
+         };
+
+         await axios.post("http://localhost:3000/api/products", newProduct);
+         setClose(true);
+      } catch (error) {
+         console.log(error);
+      }
+   };
 
    return (
       <div className={styles.container}>
@@ -114,7 +145,7 @@ const Add = ({ setClose }) => {
                   ))}
                </div>
             </div>
-            <button className={styles.addButton} onClick={handleClick}>
+            <button className={styles.addButton} onClick={handleCreate}>
                Create
             </button>
          </div>

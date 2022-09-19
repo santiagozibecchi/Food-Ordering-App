@@ -12,8 +12,8 @@ import { useRouter } from "next/router";
 import { reset } from "../../redux/cartSlice";
 import axios from "axios";
 
-import styles from "../../styles/Cart.module.css";
 import OrderDetail from "../../components/OrderDetail";
+import styles from "../../styles/Cart.module.css";
 
 const CartPage = () => {
    const [open, setOpen] = useState(false);
